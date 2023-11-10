@@ -44,15 +44,27 @@ class TaskController extends Controller
         return view('tasks.edit', compact('task'));
     }
 
-    public function update(Request $request, Task $task)
+    public function update(Request $request, $taskId)
     {
-        $task->update([
-            'title' => $request->input('title'),     
-            'completed' => $request->input('completed', false),
+        // Validate the request data
+        $request->validate([
+            'completed' => 'boolean', // Ensure that 'completed' is a boolean value
+            // other validation rules...
         ]);
-
-        return redirect()->route('tasks.index');
+    
+        // Retrieve the task
+        $task = Task::find($taskId);
+    
+        // Update the task attributes
+        $task->completed = $request->has('completed') ? 1 : 0; // Convert checkbox value to 1 or 0
+    
+        // Save the updated task
+        $task->save();
+        return view('tasks.show', compact('task'));
+    
+        // Redirect or respond as needed
     }
+    
 
     public function destroy(Task $task)
     {

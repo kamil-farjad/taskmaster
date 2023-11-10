@@ -13,9 +13,10 @@
             <input type="text" class="form-control" name="title" value="{{ $task->title }}" required>
         </div>
         <div class="form-check">
-            <input type="checkbox" class="form-check-input" name="completed" {{ $task->completed ? 'checked' : '' }}>
-            <label class="form-check-label">Completed</label>
-        </div>
+        <input type="checkbox" class="form-check-input" value=1 name="completed" {{ $task->completed ? 'checked' : '' }}>
+        <label class="form-check-label">Completed</label>
+    </div>
         <button type="submit" class="btn btn-primary">Update Task</button>
     </form>
 @endsection
+
